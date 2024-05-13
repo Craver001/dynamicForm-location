@@ -1,5 +1,6 @@
 import 'package:dataform/services/db_service.dart';
 import 'package:flutter/material.dart';
+import 'package:dataform/country_list.dart';
 
 class DynamicForm extends StatefulWidget {
   const DynamicForm({super.key});
@@ -15,7 +16,7 @@ class _DynamicFormState extends State<DynamicForm> {
   final TextEditingController _company = TextEditingController();
   final TextEditingController _age = TextEditingController();
 
-  String _selectedCountry = 'USA'; // To store the selected country
+  String _selectedCountry = CountryList.countries.first;
 
   DbService dbService = DbService();
 
@@ -100,15 +101,7 @@ class _DynamicFormState extends State<DynamicForm> {
                         _selectedCountry = newValue ?? '';
                       });
                     },
-                    items: <String>[
-                      'USA',
-                      'Canada',
-                      'UK',
-                      'Australia',
-                      'Japan',
-                      'Germany',
-                      'France'
-                    ] // Add more countries as needed
+                    items: CountryList.countries
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -177,7 +170,8 @@ class _DynamicFormState extends State<DynamicForm> {
                       _company.clear();
                       _age.clear();
                       setState(() {
-                        _selectedCountry = 'USA'; // Reset selected country
+                        _selectedCountry =
+                            'please select your country'; // Reset selected country
                       });
                     },
                     style: TextButton.styleFrom(
